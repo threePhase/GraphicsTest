@@ -87,8 +87,8 @@ namespace GraphicsTest
 
             var window = GLFW.CreateWindow(640, 480, "GLFW Drawing Test", IntPtr.Zero, IntPtr.Zero);
             if (window == IntPtr.Zero) {
-                // TODO: Tear down GLFW here (since we initialized above)?
                 Console.WriteLine($"Unable to load create window.");
+                GLFW.Terminate();
                 return;
             }
 
