@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-// heavily inspired/adapted from https://github.com/CameronAavik/dotnetcore-graphics-example
+// heavily inspired by: https://github.com/CameronAavik/dotnetcore-graphics-example
+// as well as: https://learnopengl.com/#!Getting-started/Hello-Triangle
 namespace GraphicsTest
 {
     public class Program
@@ -82,7 +83,8 @@ namespace GraphicsTest
             WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
             WindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-            // required for getting OpenGL context >= 3.2
+            // required for getting OpenGL context >= 3.2 on MacOS >= OS X 10.7
+            // http://stackoverflow.com/a/9017716
             WindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1);
             WindowHint(GLFW_RESIZABLE, 0);
 
