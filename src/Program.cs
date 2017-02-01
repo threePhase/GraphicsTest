@@ -147,19 +147,6 @@ namespace GraphicsTest
                 0.5f, -0.5f, 0.0f, // bottom right
                -0.5f, -0.5f, 0.0f // bottom left
             };
-            /*
-            float[] vertices = {
-                 0.5f,  0.5f, 0.0f, // top right
-                 0.5f, -0.5f, 0.0f, // bottom right
-                -0.5f, -0.5f, 0.0f, // bottom left
-                -0.5f,  0.5f, 0.0f // top left
-            };
-
-            uint[] indices = {
-                0, 1, 3, // first triangle
-                1, 2, 3  // second triangle
-            };
-            */
 
             // create the OpenGL Vertex Array Object (VAO)
             uint vertexArray = 0;
@@ -174,13 +161,6 @@ namespace GraphicsTest
             BindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
             var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
             BufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
-
-            // create the OpenGL Element Buffer Object
-            // uint elementBuffer = 0;
-            // GenBuffers(1, ref elementBuffer);
-            // BindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-            // var indicesSize = new IntPtr(sizeof(uint) * indices.Length);
-            // BufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
 
             var bufferSize = sizeof(float) * 3;
             VertexAttribPointer(0, 3, GL_FLOAT, false, bufferSize, IntPtr.Zero);
@@ -210,8 +190,6 @@ namespace GraphicsTest
             DeleteVertexArrays(1, ref vertexArray);
             // delete vertex buffer
             DeleteBuffers(1, ref vertexBuffer);
-            // delete element buffer
-            // DeleteBuffers(1, ref elementBuffer);
 
             // terminate GLFW, clearing any resources allocated by GLFW
             Terminate();
@@ -224,7 +202,6 @@ namespace GraphicsTest
         private delegate void glGenBuffers(int n, ref uint buffers);
         private delegate void glBindBuffer(uint target, uint buffer);
         private delegate void glBufferData(uint target, IntPtr size, float[] data, uint usage);
-        // private delegate void glBufferData(uint target, IntPtr size, uint[] data, uint usage);
         private delegate void glEnableVertexAttribArray(int index);
         private delegate void glVertexAttribPointer(uint indx, int size, uint type, bool normalized, int stride, IntPtr ptr);
         private delegate void glGenVertexArrays(int n, ref uint arrays);
