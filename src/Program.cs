@@ -8,32 +8,6 @@ namespace GraphicsTest
 {
     public class Program
     {
-        // OpenGL constants
-        // TODO: Source these from deps/glad/glad.h
-        private const int GL_TRIANGLES = 0x0004;
-        private const int GL_UNSIGNED_INT = 0x1405;
-        private const int GL_FLOAT = 0x1406;
-        private const int GL_COLOR_BUFFER_BIT = 0x4000;
-        private const int GL_ARRAY_BUFFER = 0x8892;
-        private const int GL_ELEMENT_ARRAY_BUFFER = 0x8893;
-        private const int GL_STATIC_DRAW = 0x88e4;
-        private const int GL_FRAGMENT_SHADER = 0x8b30;
-        private const int GL_VERTEX_SHADER = 0x8b31;
-        private const int GL_COMPILE_STATUS = 0x8b81;
-        private const int GL_LINK_STATUS = 0x8b82;
-
-        // GLFW - window constants
-        private const int GLFW_RESIZABLE = 0x00020003;
-        private const int GLFW_CONTEXT_VERSION_MAJOR = 0x00022002;
-        private const int GLFW_CONTEXT_VERSION_MINOR = 0x00022003;
-        private const int GLFW_OPENGL_FORWARD_COMPAT = 0x00022006;
-        private const int GLFW_OPENGL_PROFILE = 0x00022008;
-        private const int GLFW_OPENGL_CORE_PROFILE = 0x00032001;
-
-        // GLFW - key bindings constants
-        private const int GLFW_PRESS = 1;
-        private const int GLFW_KEY_ESCAPE = 256;
-
         private static string _vertexShaderText =
             string.Join(Environment.NewLine, new string[] {
                             "#version 330 core",
@@ -58,7 +32,7 @@ namespace GraphicsTest
                                         int scancode,
                                         int action,
                                         int mode) {
-            if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+            if (key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
                GLFW.SetWindowShouldClose(window, true);
             }
         }
@@ -77,13 +51,13 @@ namespace GraphicsTest
                 return;
             }
 
-            GLFW.WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-            GLFW.WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-            GLFW.WindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            GLFW.WindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+            GLFW.WindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
+            GLFW.WindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
             // required for getting OpenGL context >= 3.2 on MacOS >= OS X 10.7
             // http://stackoverflow.com/a/9017716
-            GLFW.WindowHint(GLFW_OPENGL_FORWARD_COMPAT, 1);
-            GLFW.WindowHint(GLFW_RESIZABLE, 0);
+            GLFW.WindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, 1);
+            GLFW.WindowHint(GLFW.GLFW_RESIZABLE, 0);
 
             var window = GLFW.CreateWindow(640, 480, "GLFW Drawing Test", IntPtr.Zero, IntPtr.Zero);
             if (window == IntPtr.Zero) {
@@ -102,24 +76,24 @@ namespace GraphicsTest
             OpenGL.Viewport(0, 0, width, height);
 
             // create the OpenGL Vertex Shader Object
-            uint vertexShader = OpenGL.CreateShader(GL_VERTEX_SHADER);
+            uint vertexShader = OpenGL.CreateShader(OpenGL.GL_VERTEX_SHADER);
             OpenGL.ShaderSource(vertexShader, 1, ref _vertexShaderText, IntPtr.Zero);
             OpenGL.CompileShader(vertexShader);
             int success = 0;
             string infoLog = "";
             // check for shader compile errors
-            OpenGL.GetShaderiv(vertexShader, GL_COMPILE_STATUS, ref success);
+            OpenGL.GetShaderiv(vertexShader, OpenGL.GL_COMPILE_STATUS, ref success);
             if (success == 0) {
                 OpenGL.GetShaderInfoLog(vertexShader, 512, IntPtr.Zero, infoLog);
                 Console.WriteLine($"Shader Compile Error: \n{infoLog}");
             }
 
             // create the OpenGL Fragment Shader Object
-            uint fragmentShader = OpenGL.CreateShader(GL_FRAGMENT_SHADER);
+            uint fragmentShader = OpenGL.CreateShader(OpenGL.GL_FRAGMENT_SHADER);
             OpenGL.ShaderSource(fragmentShader, 1, ref _fragmentShaderText, IntPtr.Zero);
             OpenGL.CompileShader(fragmentShader);
             // check for shader compile errors
-            OpenGL.GetShaderiv(fragmentShader, GL_COMPILE_STATUS, ref success);
+            OpenGL.GetShaderiv(fragmentShader, OpenGL.GL_COMPILE_STATUS, ref success);
             if (success == 0) {
                 OpenGL.GetShaderInfoLog(fragmentShader, 512, IntPtr.Zero, infoLog);
                 Console.WriteLine($"Shader Compile Error: \n{infoLog}");
@@ -130,7 +104,7 @@ namespace GraphicsTest
             OpenGL.AttachShader(program, fragmentShader);
             OpenGL.LinkProgram(program);
             // check for linking errors
-            OpenGL.GetProgramiv(program, GL_LINK_STATUS, ref success);
+            OpenGL.GetProgramiv(program, OpenGL.GL_LINK_STATUS, ref success);
             if (success == 0) {
                 OpenGL.GetProgramInfoLog(program, 512, IntPtr.Zero, infoLog);
                 Console.WriteLine($"Linking Error: \n{infoLog}");
@@ -155,16 +129,16 @@ namespace GraphicsTest
             // bind VAO first, then bind and set vertex buffer(s) and attribute pointer(s).
             OpenGL.BindVertexArray(vertexArray);
 
-            OpenGL.BindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+            OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, vertexBuffer);
             var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
-            OpenGL.BufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
+            OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, vertices, OpenGL.GL_STATIC_DRAW);
 
             var bufferSize = sizeof(float) * 3;
-            OpenGL.VertexAttribPointer(0, 3, GL_FLOAT, false, bufferSize, IntPtr.Zero);
+            OpenGL.VertexAttribPointer(0, 3, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
             OpenGL.EnableVertexAttribArray(0);
 
             // // unbind OpenGL Vertex Buffer Object
-            OpenGL.BindBuffer(GL_ARRAY_BUFFER, 0);
+            OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, 0);
             // // unbind OpenGL Vertex Array Object
             OpenGL.BindVertexArray(0);
 
@@ -173,11 +147,11 @@ namespace GraphicsTest
 
                 // red, green, and blue values range from 0 (0) - 255 (1)
                 OpenGL.ClearColor(1/255.0f, 113/255.0f, 187/255.0f, 1.0f);
-                OpenGL.Clear(GL_COLOR_BUFFER_BIT);
+                OpenGL.Clear(OpenGL.GL_COLOR_BUFFER_BIT);
 
                 OpenGL.UseProgram(program);
                 OpenGL.BindVertexArray(vertexArray);
-                OpenGL.DrawArrays(GL_TRIANGLES, 0, 3);
+                OpenGL.DrawArrays(OpenGL.GL_TRIANGLES, 0, 3);
                 // DrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, IntPtr.Zero);
                 OpenGL.BindVertexArray(0);
 
