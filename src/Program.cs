@@ -2,8 +2,6 @@
 using System.Runtime.InteropServices;
 using Interop.Bindings;
 
-// heavily inspired by: https://github.com/CameronAavik/dotnetcore-graphics-example
-// as well as: https://learnopengl.com/#!Getting-started/Hello-Triangle
 namespace GraphicsTest
 {
     public class Program
