@@ -1,6 +1,11 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
+    "copyToOutput": {
+        "mappings": {
+            "Triangle/triangle.vert": "src/Triangle/triangle.vert"
+        }
+    },
     "debugType": "portable",
     "emitEntryPoint": true
   },

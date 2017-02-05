@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using Interop.Bindings;
 using Interop.Exceptions.OpenGL;
@@ -7,15 +8,6 @@ namespace GraphicsTest.Triangle
 {
     public class Program
     {
-        private static string _vertexShaderText =
-            string.Join(Environment.NewLine, new string[] {
-                            "#version 330 core",
-                            "layout (location = 0) in vec3 position;",
-                            "void main() {",
-                            "    gl_Position = vec4(position.x, position.y, position.z, 1.0);",
-                            "}"
-            });
-
         private static string _fragmentShaderText =
             string.Join(Environment.NewLine, new string[] {
                             "#version 330 core",
@@ -65,10 +57,14 @@ namespace GraphicsTest.Triangle
 
             setupViewport(window);
 
+            // load shader file
+            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            string path = Path.GetDirectoryName(location);
+            string vertexShaderText = File.ReadAllText($"{path}/Triangle/triangle.vert");
             // create the OpenGL Vertex Shader Object
             uint vertexShader = 0;
             try {
-                vertexShader = createShader(OpenGL.GL_VERTEX_SHADER, _vertexShaderText);
+                vertexShader = createShader(OpenGL.GL_VERTEX_SHADER, vertexShaderText);
             }
             catch (ShaderCompileException e) {
                 Console.WriteLine(e.Message);
