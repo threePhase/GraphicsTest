@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using Interop.Bindings;
 using Interop.Exceptions.OpenGL;
 
-namespace GraphicsTest
+namespace GraphicsTest.Triangle
 {
     public class Program
     {
