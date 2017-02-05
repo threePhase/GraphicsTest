@@ -98,10 +98,8 @@ namespace GraphicsTest.Triangle
             };
             loadVertices(vertices);
 
-            // setup drawing vertices in currently bound VAO
-            var bufferSize = sizeof(float) * 3;
-            OpenGL.VertexAttribPointer(0, 3, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
-            OpenGL.EnableVertexAttribArray(0);
+            // divide by 3 since each vertex is made up of 3 points
+            setupDrawing(vertices.Length / 3);
 
             // // unbind OpenGL Vertex Buffer Object
             OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, 0);
@@ -215,6 +213,13 @@ namespace GraphicsTest.Triangle
         private static void loadVertices(float[] vertices) {
             var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
             OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, vertices, OpenGL.GL_STATIC_DRAW);
+        }
+
+        // setup drawing vertices in currently bound VAO
+        private static void setupDrawing(int totalVertices) {
+            var bufferSize = sizeof(float) * totalVertices;
+            OpenGL.VertexAttribPointer(0, totalVertices, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
+            OpenGL.EnableVertexAttribArray(0);
         }
     }
 }
