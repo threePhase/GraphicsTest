@@ -49,20 +49,14 @@ namespace GraphicsTest
                 return;
             }
 
-            GLFW.WindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-            GLFW.WindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
-            GLFW.WindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
-            // required for getting OpenGL context >= 3.2 on MacOS >= OS X 10.7
-            // http://stackoverflow.com/a/9017716
-            GLFW.WindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, 1);
-            GLFW.WindowHint(GLFW.GLFW_RESIZABLE, 0);
-
-            var window = GLFW.CreateWindow(640, 480, "GLFW Drawing Test", IntPtr.Zero, IntPtr.Zero);
-            if (window == IntPtr.Zero) {
+            var possibleWindow = createWindow("GLFW Drawing Test");
+            if (!possibleWindow.HasValue) {
                 Console.WriteLine($"Unable to load create window.");
                 GLFW.Terminate();
                 return;
             }
+
+            IntPtr window = possibleWindow.Value;
 
             GLFW.MakeContextCurrent(window);
 
@@ -162,6 +156,23 @@ namespace GraphicsTest
 
             // terminate GLFW, clearing any resources allocated by GLFW
             GLFW.Terminate();
+        }
+
+        private static IntPtr? createWindow(string windowName) {
+            GLFW.WindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+            GLFW.WindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
+            GLFW.WindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
+            // required for getting OpenGL context >= 3.2 on MacOS >= OS X 10.7
+            // http://stackoverflow.com/a/9017716
+            GLFW.WindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, 1);
+            GLFW.WindowHint(GLFW.GLFW_RESIZABLE, 0);
+
+            var window = GLFW.CreateWindow(640, 480, windowName, IntPtr.Zero, IntPtr.Zero);
+            if (window == IntPtr.Zero) {
+                return null;
+            }
+
+            return window;
         }
     }
 }
