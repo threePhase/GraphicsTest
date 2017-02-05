@@ -47,10 +47,7 @@ namespace GraphicsTest.Triangle
 
             setupViewport(window);
 
-            // load shader file
-            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
-            string path = Path.GetDirectoryName(location);
-            string vertexShaderText = File.ReadAllText($"{path}/Triangle/triangle.vert");
+            string vertexShaderText = loadShaderFile("Triangle/triangle.vert");
             // create the OpenGL Vertex Shader Object
             uint vertexShader = 0;
             try {
@@ -62,8 +59,7 @@ namespace GraphicsTest.Triangle
                 return;
             }
 
-            // load shader file
-            string fragmentShaderText = File.ReadAllText($"{path}/Triangle/triangle.frag");
+            string fragmentShaderText = loadShaderFile("Triangle/triangle.frag");
             // create the OpenGL Fragment Shader Object
             uint fragmentShader = 0;
             try {
@@ -158,6 +154,12 @@ namespace GraphicsTest.Triangle
             }
 
             return window;
+        }
+
+        private static string loadShaderFile(string shaderPath) {
+            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            string path = Path.GetDirectoryName(location);
+            return File.ReadAllText($"{path}/{shaderPath}");
         }
 
         private static uint createShader(uint type, string shaderText) {
