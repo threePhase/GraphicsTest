@@ -101,10 +101,7 @@ namespace GraphicsTest.Triangle
             // divide by 3 since each vertex is made up of 3 points
             setupDrawing(vertices.Length / 3);
 
-            // // unbind OpenGL Vertex Buffer Object
-            OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, 0);
-            // // unbind OpenGL Vertex Array Object
-            OpenGL.BindVertexArray(0);
+            unbindBuffers();
 
             while (GLFW.WindowShouldClose(window) == 0) {
                 GLFW.PollEvents();
@@ -220,6 +217,12 @@ namespace GraphicsTest.Triangle
             var bufferSize = sizeof(float) * totalVertices;
             OpenGL.VertexAttribPointer(0, totalVertices, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
             OpenGL.EnableVertexAttribArray(0);
+        }
+
+        // unbind OpenGL Vertex Array Object and OpenGL Vertex Buffer Object
+        private static void unbindBuffers() {
+            OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, 0);
+            OpenGL.BindVertexArray(0);
         }
     }
 }
