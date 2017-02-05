@@ -93,20 +93,14 @@ namespace GraphicsTest.Triangle
                -0.5f, -0.5f, 0.0f // bottom left
             };
 
-            // create the OpenGL Vertex Array Object (VAO)
-            uint vertexArray = 0;
-            OpenGL.GenVertexArrays(1, ref vertexArray);
-            // create the OpenGL Vertex Buffer Object (VBO)
-            uint vertexBuffer = 0;
-            OpenGL.GenBuffers(1, ref vertexBuffer);
+            uint vertexArray = loadVertexArrayObject();
+            uint vertexBuffer = loadVertexBufferObject();
 
-            // bind VAO first, then bind and set vertex buffer(s) and attribute pointer(s).
-            OpenGL.BindVertexArray(vertexArray);
-
-            OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, vertexBuffer);
+            // load vertices
             var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
             OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, vertices, OpenGL.GL_STATIC_DRAW);
 
+            // setup drawing vertices in currently bound VAO
             var bufferSize = sizeof(float) * 3;
             OpenGL.VertexAttribPointer(0, 3, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
             OpenGL.EnableVertexAttribArray(0);
@@ -200,6 +194,23 @@ namespace GraphicsTest.Triangle
                 height = 0;
             GLFW.GetFramebufferSize(window, ref width, ref height);
             OpenGL.Viewport(0, 0, width, height);
+        }
+
+        // create the OpenGL Vertex Array Object (VAO)
+        private static uint loadVertexArrayObject() {
+            uint vertexArray = 0;
+            OpenGL.GenVertexArrays(1, ref vertexArray);
+            // bind VAO first, then bind and set vertex buffer(s) and attribute pointer(s).
+            OpenGL.BindVertexArray(vertexArray);
+            return vertexArray;
+        }
+
+        // create the OpenGL Vertex Buffer Object (VBO)
+        private static uint loadVertexBufferObject() {
+            uint vertexBuffer = 0;
+            OpenGL.GenBuffers(1, ref vertexBuffer);
+            OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, vertexBuffer);
+            return vertexBuffer;
         }
     }
 }
