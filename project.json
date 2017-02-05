@@ -3,7 +3,8 @@
   "buildOptions": {
     "copyToOutput": {
         "mappings": {
-            "Triangle/triangle.vert": "src/Triangle/triangle.vert"
+            "Triangle/triangle.vert": "src/Triangle/triangle.vert",
+            "Triangle/triangle.frag": "src/Triangle/triangle.frag"
         }
     },
     "debugType": "portable",

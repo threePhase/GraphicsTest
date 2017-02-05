@@ -8,16 +8,6 @@ namespace GraphicsTest.Triangle
 {
     public class Program
     {
-        private static string _fragmentShaderText =
-            string.Join(Environment.NewLine, new string[] {
-                            "#version 330 core",
-                            "out vec4 color;",
-                            "void main() {",
-                            "    color = vec4(1.0f, 0.5f, 0.2f, 1.0f);",
-                            "}"
-            });
-
-
         private static void keyBindings(IntPtr window,
                                         int key,
                                         int scancode,
@@ -72,10 +62,12 @@ namespace GraphicsTest.Triangle
                 return;
             }
 
+            // load shader file
+            string fragmentShaderText = File.ReadAllText($"{path}/Triangle/triangle.frag");
             // create the OpenGL Fragment Shader Object
             uint fragmentShader = 0;
             try {
-                fragmentShader = createShader(OpenGL.GL_FRAGMENT_SHADER, _fragmentShaderText);
+                fragmentShader = createShader(OpenGL.GL_FRAGMENT_SHADER, fragmentShaderText);
             }
             catch (ShaderCompileException e) {
                 Console.WriteLine(e.Message);
