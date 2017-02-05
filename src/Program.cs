@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Interop.Bindings;
+using Interop.Exceptions.OpenGL;
 
 namespace GraphicsTest
 {
@@ -91,15 +92,16 @@ namespace GraphicsTest
                 Console.WriteLine($"Shader Compile Error: \n{infoLog}");
             }
 
-            var program = OpenGL.CreateProgram();
-            OpenGL.AttachShader(program, vertexShader);
-            OpenGL.AttachShader(program, fragmentShader);
-            OpenGL.LinkProgram(program);
-            // check for linking errors
-            OpenGL.GetProgramiv(program, OpenGL.GL_LINK_STATUS, ref success);
-            if (success == 0) {
-                OpenGL.GetProgramInfoLog(program, 512, IntPtr.Zero, infoLog);
-                Console.WriteLine($"Linking Error: \n{infoLog}");
+            uint program = 0;
+            try {
+                program = createProgram(vertexShader, fragmentShader);
+            }
+            catch (LinkingException e) {
+                Console.WriteLine(e.Message);
+                OpenGL.DeleteShader(vertexShader);
+                OpenGL.DeleteShader(fragmentShader);
+                GLFW.Terminate();
+                return;
             }
 
             OpenGL.DeleteShader(vertexShader);
@@ -173,6 +175,22 @@ namespace GraphicsTest
             }
 
             return window;
+        }
+
+        private static uint createProgram(uint vertexShader, uint fragmentShader) {
+            uint program = OpenGL.CreateProgram();
+            OpenGL.AttachShader(program, vertexShader);
+            OpenGL.AttachShader(program, fragmentShader);
+            OpenGL.LinkProgram(program);
+            // check for linking errors
+            int success = 0;
+            string infoLog = "";
+            OpenGL.GetProgramiv(program, OpenGL.GL_LINK_STATUS, ref success);
+            if (success == 0) {
+                OpenGL.GetProgramInfoLog(program, 512, IntPtr.Zero, infoLog);
+                throw new LinkingException(infoLog);
+            }
+            return program;
         }
     }
 }
