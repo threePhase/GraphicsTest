@@ -87,18 +87,16 @@ namespace GraphicsTest.Triangle
             OpenGL.DeleteShader(vertexShader);
             OpenGL.DeleteShader(fragmentShader);
 
-            float[] vertices = {
-                0.0f,  0.5f, 0.0f, // top right
-                0.5f, -0.5f, 0.0f, // bottom right
-               -0.5f, -0.5f, 0.0f // bottom left
-            };
-
             uint vertexArray = loadVertexArrayObject();
             uint vertexBuffer = loadVertexBufferObject();
 
-            // load vertices
-            var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
-            OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, vertices, OpenGL.GL_STATIC_DRAW);
+            // (x, y, z) coordinate pairs
+            float[] vertices = {
+                0.0f,  0.5f, 0.0f, // top right
+                0.5f, -0.5f, 0.0f, // bottom right
+               -0.5f, -0.5f, 0.0f  // bottom left
+            };
+            loadVertices(vertices);
 
             // setup drawing vertices in currently bound VAO
             var bufferSize = sizeof(float) * 3;
@@ -211,6 +209,12 @@ namespace GraphicsTest.Triangle
             OpenGL.GenBuffers(1, ref vertexBuffer);
             OpenGL.BindBuffer(OpenGL.GL_ARRAY_BUFFER, vertexBuffer);
             return vertexBuffer;
+        }
+
+        // load given vertices into VBO
+        private static void loadVertices(float[] vertices) {
+            var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
+            OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, vertices, OpenGL.GL_STATIC_DRAW);
         }
     }
 }
