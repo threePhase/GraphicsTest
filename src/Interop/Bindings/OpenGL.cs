@@ -11,11 +11,9 @@ namespace Interop.Bindings
         // OpenGL constants
         // TODO: Source these from deps/glad/glad.h
         public const int GL_TRIANGLES = 0x0004;
-        public const int GL_UNSIGNED_INT = 0x1405;
         public const int GL_FLOAT = 0x1406;
         public const int GL_COLOR_BUFFER_BIT = 0x4000;
         public const int GL_ARRAY_BUFFER = 0x8892;
-        public const int GL_ELEMENT_ARRAY_BUFFER = 0x8893;
         public const int GL_STATIC_DRAW = 0x88e4;
         public const int GL_FRAGMENT_SHADER = 0x8b30;
         public const int GL_VERTEX_SHADER = 0x8b31;
@@ -42,8 +40,6 @@ namespace Interop.Bindings
         public delegate void glCompileShader(uint shader);
         public delegate uint glCreateShader(uint type);
         public delegate void glShaderSource(uint shader, int count, ref string str, IntPtr length);
-        public delegate int glGetUniformLocation(uint program, string name);
-        public delegate int glGetAttribLocation(uint program, string name);
         public delegate void glViewport(int x, int y, int width, int height);
         public delegate void glUseProgram(uint program);
         public delegate void glDeleteShader(uint shader);
@@ -53,7 +49,6 @@ namespace Interop.Bindings
         public delegate void glGetProgramInfoLog(uint program, int bufSize, IntPtr length, byte[] infoLog);
         public delegate void glDeleteVertexArrays(int n, ref uint arrays);
         public delegate void glDeleteBuffers(int n, ref uint buffers);
-        public delegate void glDrawElements(int mode, int first, int count, IntPtr indices);
 
         // OpenGL Methods
         public static glGenBuffers GenBuffers = GLFW.GetMethod<glGenBuffers>();
@@ -71,8 +66,6 @@ namespace Interop.Bindings
         public static glCompileShader CompileShader = GLFW.GetMethod<glCompileShader>();
         public static glCreateShader CreateShader = GLFW.GetMethod<glCreateShader>();
         public static glShaderSource ShaderSource = GLFW.GetMethod<glShaderSource>();
-        public static glGetUniformLocation GetUniformLocation = GLFW.GetMethod<glGetUniformLocation>();
-        public static glGetAttribLocation GetAttribLocation = GLFW.GetMethod<glGetAttribLocation>();
         public static glViewport Viewport = GLFW.GetMethod<glViewport>();
         public static glUseProgram UseProgram = GLFW.GetMethod<glUseProgram>();
         public static glDeleteShader DeleteShader = GLFW.GetMethod<glDeleteShader>();
@@ -82,6 +75,5 @@ namespace Interop.Bindings
         public static glGetProgramInfoLog GetProgramInfoLog = GLFW.GetMethod<glGetProgramInfoLog>();
         public static glDeleteVertexArrays DeleteVertexArrays = GLFW.GetMethod<glDeleteVertexArrays>();
         public static glDeleteBuffers DeleteBuffers = GLFW.GetMethod<glDeleteBuffers>();
-        public static glDrawElements DrawElements = GLFW.GetMethod<glDrawElements>();
     }
 }

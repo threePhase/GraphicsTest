@@ -145,7 +145,6 @@ namespace GraphicsTest
                 OpenGL.UseProgram(program);
                 OpenGL.BindVertexArray(vertexArray);
                 OpenGL.DrawArrays(OpenGL.GL_TRIANGLES, 0, 3);
-                // DrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, IntPtr.Zero);
                 OpenGL.BindVertexArray(0);
 
                 GLFW.SwapBuffers(window);
