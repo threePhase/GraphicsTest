@@ -69,29 +69,26 @@ namespace GraphicsTest
             OpenGL.Viewport(0, 0, width, height);
 
             // create the OpenGL Vertex Shader Object
-            uint vertexShader = OpenGL.CreateShader(OpenGL.GL_VERTEX_SHADER);
-            OpenGL.ShaderSource(vertexShader, 1, ref _vertexShaderText, IntPtr.Zero);
-            OpenGL.CompileShader(vertexShader);
-            int success = 0;
-            byte[] infoLog = new byte[512];
-            // check for shader compile errors
-            OpenGL.GetShaderiv(vertexShader, OpenGL.GL_COMPILE_STATUS, ref success);
-            if (success == 0) {
-                OpenGL.GetShaderInfoLog(vertexShader, infoLog.Length, IntPtr.Zero, infoLog);
-                string log = System.Text.Encoding.UTF8.GetString(infoLog);
-                Console.WriteLine($"Shader Compile Error: \n{log}");
+            uint vertexShader = 0;
+            try {
+                vertexShader = createShader(OpenGL.GL_VERTEX_SHADER, _vertexShaderText);
+            }
+            catch (ShaderCompileException e) {
+                Console.WriteLine(e.Message);
+                GLFW.Terminate();
+                return;
             }
 
             // create the OpenGL Fragment Shader Object
-            uint fragmentShader = OpenGL.CreateShader(OpenGL.GL_FRAGMENT_SHADER);
-            OpenGL.ShaderSource(fragmentShader, 1, ref _fragmentShaderText, IntPtr.Zero);
-            OpenGL.CompileShader(fragmentShader);
-            // check for shader compile errors
-            OpenGL.GetShaderiv(fragmentShader, OpenGL.GL_COMPILE_STATUS, ref success);
-            if (success == 0) {
-                OpenGL.GetShaderInfoLog(fragmentShader, infoLog.Length, IntPtr.Zero, infoLog);
-                string log = System.Text.Encoding.UTF8.GetString(infoLog);
-                Console.WriteLine($"Shader Compile Error: \n{log}");
+            uint fragmentShader = 0;
+            try {
+                fragmentShader = createShader(OpenGL.GL_FRAGMENT_SHADER, _fragmentShaderText);
+            }
+            catch (ShaderCompileException e) {
+                Console.WriteLine(e.Message);
+                OpenGL.DeleteShader(vertexShader);
+                GLFW.Terminate();
+                return;
             }
 
             uint program = 0;
@@ -177,6 +174,22 @@ namespace GraphicsTest
             }
 
             return window;
+        }
+
+        private static uint createShader(uint type, string shaderText) {
+            uint shader = OpenGL.CreateShader(type);
+            OpenGL.ShaderSource(shader, 1, ref shaderText, IntPtr.Zero);
+            OpenGL.CompileShader(shader);
+            int success = 0;
+            byte[] infoLog = new byte[512];
+            // check for shader compile errors
+            OpenGL.GetShaderiv(shader, OpenGL.GL_COMPILE_STATUS, ref success);
+            if (success == 0) {
+                OpenGL.GetShaderInfoLog(shader, infoLog.Length, IntPtr.Zero, infoLog);
+                string log = System.Text.Encoding.UTF8.GetString(infoLog);
+                throw new ShaderCompileException(log);
+            }
+            return shader;
         }
 
         private static uint createProgram(uint vertexShader, uint fragmentShader) {
