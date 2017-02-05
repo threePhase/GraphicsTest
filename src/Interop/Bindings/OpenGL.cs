@@ -48,7 +48,7 @@ namespace Interop.Bindings
         public delegate void glUseProgram(uint program);
         public delegate void glDeleteShader(uint shader);
         public delegate void glGetShaderiv(uint shader, uint pname, ref int parameters);
-        public delegate void glGetShaderInfoLog(uint shader, int bufSize, IntPtr length, string infoLog);
+        public delegate void glGetShaderInfoLog(uint shader, int maxSize, IntPtr length, byte[] infoLog);
         public delegate void glGetProgramiv(uint program, uint pname, ref int parameters);
         public delegate void glGetProgramInfoLog(uint program, int bufSize, IntPtr length, string infoLog);
         public delegate void glDeleteVertexArrays(int n, ref uint arrays);

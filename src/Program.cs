@@ -73,12 +73,13 @@ namespace GraphicsTest
             OpenGL.ShaderSource(vertexShader, 1, ref _vertexShaderText, IntPtr.Zero);
             OpenGL.CompileShader(vertexShader);
             int success = 0;
-            string infoLog = "";
+            byte[] infoLog = new byte[512];
             // check for shader compile errors
             OpenGL.GetShaderiv(vertexShader, OpenGL.GL_COMPILE_STATUS, ref success);
             if (success == 0) {
-                OpenGL.GetShaderInfoLog(vertexShader, 512, IntPtr.Zero, infoLog);
-                Console.WriteLine($"Shader Compile Error: \n{infoLog}");
+                OpenGL.GetShaderInfoLog(vertexShader, infoLog.Length, IntPtr.Zero, infoLog);
+                string log = System.Text.Encoding.UTF8.GetString(infoLog);
+                Console.WriteLine($"Shader Compile Error: \n{log}");
             }
 
             // create the OpenGL Fragment Shader Object
@@ -88,8 +89,9 @@ namespace GraphicsTest
             // check for shader compile errors
             OpenGL.GetShaderiv(fragmentShader, OpenGL.GL_COMPILE_STATUS, ref success);
             if (success == 0) {
-                OpenGL.GetShaderInfoLog(fragmentShader, 512, IntPtr.Zero, infoLog);
-                Console.WriteLine($"Shader Compile Error: \n{infoLog}");
+                OpenGL.GetShaderInfoLog(fragmentShader, infoLog.Length, IntPtr.Zero, infoLog);
+                string log = System.Text.Encoding.UTF8.GetString(infoLog);
+                Console.WriteLine($"Shader Compile Error: \n{log}");
             }
 
             uint program = 0;
