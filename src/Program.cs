@@ -63,10 +63,7 @@ namespace GraphicsTest
 
             GLFW.SetKeyCallback(window, keyBindings);
 
-            int width = 0,
-                height = 0;
-            GLFW.GetFramebufferSize(window, ref width, ref height);
-            OpenGL.Viewport(0, 0, width, height);
+            setupViewport(window);
 
             // create the OpenGL Vertex Shader Object
             uint vertexShader = 0;
@@ -206,6 +203,13 @@ namespace GraphicsTest
                 throw new LinkingException(log);
             }
             return program;
+        }
+
+        private static void setupViewport(IntPtr window) {
+            int width = 0,
+                height = 0;
+            GLFW.GetFramebufferSize(window, ref width, ref height);
+            OpenGL.Viewport(0, 0, width, height);
         }
     }
 }
