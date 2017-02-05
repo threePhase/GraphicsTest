@@ -186,11 +186,12 @@ namespace GraphicsTest
             OpenGL.LinkProgram(program);
             // check for linking errors
             int success = 0;
-            string infoLog = "";
+            byte[] infoLog = new byte[512];
             OpenGL.GetProgramiv(program, OpenGL.GL_LINK_STATUS, ref success);
             if (success == 0) {
-                OpenGL.GetProgramInfoLog(program, 512, IntPtr.Zero, infoLog);
-                throw new LinkingException(infoLog);
+                OpenGL.GetProgramInfoLog(program, infoLog.Length, IntPtr.Zero, infoLog);
+                string log = System.Text.Encoding.UTF8.GetString(infoLog);
+                throw new LinkingException(log);
             }
             return program;
         }
