@@ -6,7 +6,7 @@ using Interop.Exceptions.OpenGL;
 
 namespace GraphicsTest.Triangle
 {
-    public class Program
+    public class Demo
     {
         private static void keyBindings(IntPtr window,
                                         int key,
@@ -22,9 +22,7 @@ namespace GraphicsTest.Triangle
             Console.WriteLine($"GLFW Error: {description}");
         }
 
-        public static void Main(string[] args) {
-            Console.WriteLine("This is a simple drawing test using GLFW and OpenGL 3.3!");
-
+        public static void Run() {
             GLFW.SetErrorCallback(onError);
 
             if (!GLFW.Initialize()) {
