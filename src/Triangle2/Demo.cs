@@ -6,14 +6,14 @@ namespace GraphicsTest.Triangle2 {
     public class Demo : IDemo {
         private IGameEngine _engine;
         private IRenderer _renderer;
+        private const string _fragmentShaderPath = "Triangle/triangle.frag";
+        private const string _vertexShaderPath = "Triangle/triangle.vert";
 
         public void Run() {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
 
-            string vertexPath = "Triangle/triangle.vert";
-            string fragmentPath = "Triangle/triangle.frag";
-            _renderer.SetupShaders(vertexPath, fragmentPath);
+            _renderer.SetupShaders(_vertexShaderPath, _fragmentShaderPath);
 
             _renderer.SetupDrawing();
 
