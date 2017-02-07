@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GraphicsTest.Interfaces;
 using Triangle = GraphicsTest.Triangle;
 using Triangle2 = GraphicsTest.Triangle2;
 
@@ -17,8 +18,7 @@ namespace GraphicsTest
 
             var demos = new Dictionary<int, DemoSelection>() {
                 {1, new DemoSelection("Triangle Demo", Triangle.Demo.Run)},
-                {2, new DemoSelection("Triangle Demo (using Engine)",
-                                      new Triangle2.Demo().Run)}
+                {2, new DemoSelection(new Triangle2.Demo())}
             };
 
             int selectedDemo = startInteractiveMenu(demos);
@@ -62,6 +62,11 @@ namespace GraphicsTest
         public DemoSelection(string demoName, DemoRunMethod runMethod) {
             DemoName = demoName;
             Run = runMethod;
+        }
+
+        public DemoSelection(IDemo demo) {
+            DemoName = demo.Name;
+            Run = demo.Run;
         }
 
         public override string ToString() {

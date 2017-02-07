@@ -9,6 +9,12 @@ namespace GraphicsTest.Triangle2 {
         private const string _fragmentShaderPath = "Triangle/triangle.frag";
         private const string _vertexShaderPath = "Triangle/triangle.vert";
 
+        public string Name {
+            get {
+                return "Triangle Demo (using Engine)";
+            }
+        }
+
         public void Run() {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
