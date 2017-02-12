@@ -27,7 +27,7 @@ namespace Interop.Bindings
         // OpenGL pointers
         public delegate void glGenBuffers(int n, ref uint buffers);
         public delegate void glBindBuffer(uint target, uint buffer);
-        public delegate void glBufferData(uint target, IntPtr size, float[] data, uint usage);
+        public delegate void glBufferData(uint target, IntPtr size, IntPtr data, uint usage);
         public delegate void glEnableVertexAttribArray(int index);
         public delegate void glVertexAttribPointer(uint indx, int size, uint type, bool normalized, int stride, IntPtr ptr);
         public delegate void glGenVertexArrays(int n, ref uint arrays);

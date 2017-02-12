@@ -207,7 +207,10 @@ namespace GraphicsTest.Triangle
         // load given vertices into VBO
         private static void loadVertices(float[] vertices) {
             var verticesSize = new IntPtr(sizeof(float) * vertices.Length);
-            OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, vertices, OpenGL.GL_STATIC_DRAW);
+            IntPtr verticesHandle = Marshal.AllocHGlobal(vertices.Length);
+            Marshal.Copy(vertices, 0, verticesHandle, vertices.Length);
+            OpenGL.BufferData(OpenGL.GL_ARRAY_BUFFER, verticesSize, verticesHandle, OpenGL.GL_STATIC_DRAW);
+            Marshal.FreeHGlobal(verticesHandle);
         }
 
         // setup drawing vertices in currently bound VAO
