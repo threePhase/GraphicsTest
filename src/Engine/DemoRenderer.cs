@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using Engine.Interfaces;
+using Engine.Extensions;
 using Interop.Bindings;
 using Interop.Exceptions.OpenGL;
 
@@ -10,6 +11,7 @@ namespace Engine {
         private uint _program;
         private uint _vertexArray;
         private uint _vertexBuffer;
+        private uint _elementBuffer;
         private IntPtr _window;
 
         public DemoRenderer(IntPtr window) {
@@ -30,7 +32,11 @@ namespace Engine {
 
             OpenGL.UseProgram(_program);
             OpenGL.BindVertexArray(_vertexArray);
-            OpenGL.DrawArrays(OpenGL.GL_TRIANGLES, 0, 3);
+            if (_elementBuffer != 0) {
+                OpenGL.DrawElements(OpenGL.GL_TRIANGLES, 6, OpenGL.GL_UNSIGNED_INT, IntPtr.Zero);
+            } else {
+                OpenGL.DrawArrays(OpenGL.GL_TRIANGLES, 0, 3);
+            }
             OpenGL.BindVertexArray(0);
 
             GLFW.SwapBuffers(_window);
@@ -85,14 +91,19 @@ namespace Engine {
             OpenGL.DeleteShader(fragmentShader);
         }
 
-        public void SetupDrawing(float[] vertices) {
+        public void SetupDrawing(float[] vertices, uint[] indices = null) {
             _vertexArray = loadVertexArrayObject();
             _vertexBuffer = loadVertexBufferObject();
 
             loadVertices(vertices);
 
-            // divide by 3 since each vertex is made up of 3 points
-            setupDrawing(vertices.Length / 3);
+            if (indices != null) {
+                _elementBuffer = loadElementBufferObject();
+                loadIndices(indices);
+            }
+
+            // number of components per vertex = 3
+            setupDrawing(3);
 
             unbindBuffers();
         }
@@ -168,10 +179,33 @@ namespace Engine {
             }
         }
 
+        // create the OpenGL Element Buffer Object (EBO)
+        private static uint loadElementBufferObject() {
+            uint elementBuffer = 0;
+            OpenGL.GenBuffers(1, ref elementBuffer);
+            OpenGL.BindBuffer(OpenGL.GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+            return elementBuffer;
+        }
+
+        // load given indices into EBO
+        private static void loadIndices(uint[] indices) {
+            byte[] data = indices.ToByteArray();
+            int size = Marshal.SizeOf(data[0]) * data.Length;
+            IntPtr handle = Marshal.AllocHGlobal(size);
+            try {
+                Marshal.Copy(data, 0, handle, data.Length);
+                var unmanagedSize = new IntPtr(size);
+                OpenGL.BufferData(OpenGL.GL_ELEMENT_ARRAY_BUFFER, unmanagedSize, handle, OpenGL.GL_STATIC_DRAW);
+            }
+            finally {
+                Marshal.FreeHGlobal(handle);
+            }
+        }
+
         // setup drawing vertices in currently bound VAO
-        private static void setupDrawing(int totalVertices) {
-            var bufferSize = sizeof(float) * totalVertices;
-            OpenGL.VertexAttribPointer(0, totalVertices, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
+        private static void setupDrawing(int vertex_component_count) {
+            var bufferSize = sizeof(float) * vertex_component_count;
+            OpenGL.VertexAttribPointer(0, vertex_component_count, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
             OpenGL.EnableVertexAttribArray(0);
         }
 

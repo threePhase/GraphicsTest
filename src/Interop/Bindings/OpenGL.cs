@@ -11,9 +11,11 @@ namespace Interop.Bindings
         // OpenGL constants
         // TODO: Source these from deps/glad/glad.h
         public const int GL_TRIANGLES = 0x0004;
+        public const int GL_UNSIGNED_INT = 0x1405;
         public const int GL_FLOAT = 0x1406;
         public const int GL_COLOR_BUFFER_BIT = 0x4000;
         public const int GL_ARRAY_BUFFER = 0x8892;
+        public const int GL_ELEMENT_ARRAY_BUFFER = 0x8893;
         public const int GL_STATIC_DRAW = 0x88e4;
         public const int GL_FRAGMENT_SHADER = 0x8b30;
         public const int GL_VERTEX_SHADER = 0x8b31;
@@ -23,6 +25,8 @@ namespace Interop.Bindings
         // OpenGL bindings
         [DllImport(OPENGL_LIB, EntryPoint="glDrawArrays")]
         public static extern void DrawArrays(int mode, int first, int count);
+        [DllImport(OPENGL_LIB, EntryPoint="glDrawElements")]
+        public static extern void DrawElements(int mode, int count, uint type, IntPtr indices);
 
         // OpenGL pointers
         public delegate void glGenBuffers(int n, ref uint buffers);

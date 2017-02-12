@@ -7,6 +7,6 @@ namespace Engine.Interfaces {
         void SetupShaders(string vertexShaderPath, string fragmentShaderPath);
         void SetupShaders(Shader vertexShader, Shader fragmentShader);
         // TODO: Not sure about this name
-        void SetupDrawing(float[] vertices);
+        void SetupDrawing(float[] vertices, uint[] indices = null);
     }
 }
