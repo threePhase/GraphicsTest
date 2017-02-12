@@ -21,7 +21,14 @@ namespace GraphicsTest.Triangle2 {
 
             _renderer.SetupShaders(_vertexShaderPath, _fragmentShaderPath);
 
-            _renderer.SetupDrawing();
+            // (x, y, z) coordinate pairs
+            float[] vertices = {
+                0.0f,  0.5f, 0.0f, // top
+                0.5f, -0.5f, 0.0f, // bottom right
+                -0.5f, -0.5f, 0.0f  // bottom left
+            };
+
+            _renderer.SetupDrawing(vertices);
 
             while (_engine.IsRunning()) {
                 _engine.PollEvents();

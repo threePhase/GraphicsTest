@@ -85,16 +85,10 @@ namespace Engine {
             OpenGL.DeleteShader(fragmentShader);
         }
 
-        public void SetupDrawing() {
+        public void SetupDrawing(float[] vertices) {
             _vertexArray = loadVertexArrayObject();
             _vertexBuffer = loadVertexBufferObject();
 
-            // (x, y, z) coordinate pairs
-            float[] vertices = {
-                0.0f,  0.5f, 0.0f, // top
-                0.5f, -0.5f, 0.0f, // bottom right
-               -0.5f, -0.5f, 0.0f  // bottom left
-            };
             loadVertices(vertices);
 
             // divide by 3 since each vertex is made up of 3 points
