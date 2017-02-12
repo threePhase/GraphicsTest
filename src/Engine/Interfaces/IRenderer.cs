@@ -5,6 +5,7 @@ namespace Engine.Interfaces {
         void Cleanup();
         void DrawScene();
         void SetupShaders(string vertexShaderPath, string fragmentShaderPath);
+        void SetupShaders(Shader vertexShader, Shader fragmentShader);
         // TODO: Not sure about this name
         void SetupDrawing();
     }

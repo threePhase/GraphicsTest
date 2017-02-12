@@ -36,6 +36,11 @@ namespace Engine {
             GLFW.SwapBuffers(_window);
         }
 
+        public void SetupShaders(Shader vertexShader,
+                                 Shader fragmentShader) {
+            SetupShaders(vertexShader.Path, fragmentShader.Path);
+        }
+
         public void SetupShaders(string vertexShaderPath,
                                  string fragmentShaderPath) {
             string vertexShaderText = loadShaderFile(vertexShaderPath);
