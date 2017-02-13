@@ -91,7 +91,7 @@ namespace Engine {
             OpenGL.DeleteShader(fragmentShader);
         }
 
-        public void SetupDrawing(float[] vertices, uint[] indices = null) {
+        public void SetupDrawing(float[] vertices, uint[] indices = null, DrawingMode mode = DrawingMode.Fill) {
             _vertexArray = loadVertexArrayObject();
             _vertexBuffer = loadVertexBufferObject();
 
@@ -104,6 +104,8 @@ namespace Engine {
 
             // number of components per vertex = 3
             setupDrawing(3);
+
+            setDrawingMode(mode);
 
             unbindBuffers();
         }
@@ -207,6 +209,20 @@ namespace Engine {
             var bufferSize = sizeof(float) * vertex_component_count;
             OpenGL.VertexAttribPointer(0, vertex_component_count, OpenGL.GL_FLOAT, false, bufferSize, IntPtr.Zero);
             OpenGL.EnableVertexAttribArray(0);
+        }
+
+        private static void setDrawingMode(DrawingMode mode) {
+            switch (mode) {
+                case DrawingMode.Wireframe:
+                    OpenGL.PolygonMode(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_LINE);
+                    break;
+                case DrawingMode.Fill:
+                    OpenGL.PolygonMode(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_FILL);
+                    break;
+                default:
+                    OpenGL.PolygonMode(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_FILL);
+                    break;
+            }
         }
 
         // unbind OpenGL Vertex Array Object and OpenGL Vertex Buffer Object

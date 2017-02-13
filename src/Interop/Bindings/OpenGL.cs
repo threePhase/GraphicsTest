@@ -11,8 +11,11 @@ namespace Interop.Bindings
         // OpenGL constants
         // TODO: Source these from deps/glad/glad.h
         public const int GL_TRIANGLES = 0x0004;
+        public const int GL_FRONT_AND_BACK = 0x0408;
         public const int GL_UNSIGNED_INT = 0x1405;
         public const int GL_FLOAT = 0x1406;
+        public const int GL_LINE = 0x1B01;
+        public const int GL_FILL = 0x1B02;
         public const int GL_COLOR_BUFFER_BIT = 0x4000;
         public const int GL_ARRAY_BUFFER = 0x8892;
         public const int GL_ELEMENT_ARRAY_BUFFER = 0x8893;
@@ -53,6 +56,7 @@ namespace Interop.Bindings
         public delegate void glGetProgramInfoLog(uint program, int bufSize, IntPtr length, byte[] infoLog);
         public delegate void glDeleteVertexArrays(int n, ref uint arrays);
         public delegate void glDeleteBuffers(int n, ref uint buffers);
+        public delegate void glPolygonMode(uint face, uint mode);
 
         // OpenGL Methods
         public static glGenBuffers GenBuffers = GLFW.GetMethod<glGenBuffers>();
@@ -79,5 +83,6 @@ namespace Interop.Bindings
         public static glGetProgramInfoLog GetProgramInfoLog = GLFW.GetMethod<glGetProgramInfoLog>();
         public static glDeleteVertexArrays DeleteVertexArrays = GLFW.GetMethod<glDeleteVertexArrays>();
         public static glDeleteBuffers DeleteBuffers = GLFW.GetMethod<glDeleteBuffers>();
+        public static glPolygonMode PolygonMode = GLFW.GetMethod<glPolygonMode>();
     }
 }

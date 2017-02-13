@@ -36,7 +36,7 @@ namespace GraphicsTest.Rectangle {
                 1, 2, 3
             };
 
-            _renderer.SetupDrawing(vertices, indices);
+            _renderer.SetupDrawing(vertices, indices, DrawingMode.Wireframe);
 
             while (_engine.IsRunning()) {
                 _engine.PollEvents();
