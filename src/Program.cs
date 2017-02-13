@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GraphicsTest.Interfaces;
 using Rectangle = GraphicsTest.Rectangle;
 using Triangle = GraphicsTest.Triangle;
@@ -18,28 +19,29 @@ namespace GraphicsTest
             Console.WriteLine("Please select a number from the list below to start a demo (or 0 to exit):");
             Console.WriteLine();
 
-            var demos = new Dictionary<int, DemoSelection>() {
-                {1, new DemoSelection("Triangle Demo", Triangle.Demo.Run)},
-                {2, new DemoSelection(new Triangle2.Demo())},
-                {3, new DemoSelection(new Rectangle.Demo())},
-                {4, new DemoSelection(new TwoTriangles.Demo())}
+            var demos = new List<DemoSelection>() {
+                new DemoSelection("Triangle Demo", Triangle.Demo.Run),
+                new DemoSelection(new Triangle2.Demo()),
+                new DemoSelection(new Rectangle.Demo()),
+                new DemoSelection(new TwoTriangles.Demo())
             };
 
-            int selectedDemo = startInteractiveMenu(demos);
+            int selectedDemo = (int)startInteractiveMenu(demos);
 
             if (selectedDemo != 0) {
-                var demo = demos[selectedDemo];
+                var demo = demos[selectedDemo-1];
                 Console.WriteLine($"Starting {demo}");
                 demo.Run();
             }
         }
 
-        private static int startInteractiveMenu(Dictionary<int, DemoSelection> demos) {
+        private static uint startInteractiveMenu(IEnumerable<DemoSelection> demos) {
             displayOptions(demos);
             string demoSelection = Console.ReadLine();
-            int selectedDemo = 0;
-            while(!int.TryParse(demoSelection, out selectedDemo) ||
-                  (selectedDemo != 0 && !demos.ContainsKey(selectedDemo))) {
+            int totalDemos = demos.Count();
+            uint selectedDemo = 0;
+            while(!uint.TryParse(demoSelection, out selectedDemo) ||
+                  (selectedDemo != 0 && selectedDemo > totalDemos)) {
                 Console.WriteLine("Invalid selection, please try again.");
                 Console.WriteLine();
                 displayOptions(demos);
@@ -48,9 +50,11 @@ namespace GraphicsTest
             return selectedDemo;
         }
 
-        private static void displayOptions(Dictionary<int, DemoSelection> demos) {
+        private static void displayOptions(IEnumerable<DemoSelection> demos) {
+            int i = 1;
             foreach(var demo in demos) {
-                Console.WriteLine($"{demo.Key}. {demo.Value}");
+                Console.WriteLine($"{i}. {demo}");
+                i++;
             }
             Console.Write("Demo: ");
         }
