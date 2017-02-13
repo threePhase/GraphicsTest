@@ -4,6 +4,7 @@ using GraphicsTest.Interfaces;
 using Rectangle = GraphicsTest.Rectangle;
 using Triangle = GraphicsTest.Triangle;
 using Triangle2 = GraphicsTest.Triangle2;
+using TwoTriangles = GraphicsTest.TwoTriangles;
 
 namespace GraphicsTest
 {
@@ -20,7 +21,8 @@ namespace GraphicsTest
             var demos = new Dictionary<int, DemoSelection>() {
                 {1, new DemoSelection("Triangle Demo", Triangle.Demo.Run)},
                 {2, new DemoSelection(new Triangle2.Demo())},
-                {3, new DemoSelection(new Rectangle.Demo())}
+                {3, new DemoSelection(new Rectangle.Demo())},
+                {4, new DemoSelection(new TwoTriangles.Demo())}
             };
 
             int selectedDemo = startInteractiveMenu(demos);
