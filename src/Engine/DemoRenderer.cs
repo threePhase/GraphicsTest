@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using Engine.Interfaces;
@@ -108,6 +109,12 @@ namespace Engine {
             setDrawingMode(mode);
 
             unbindBuffers();
+        }
+
+        public void SetupDrawing(IEnumerable<Geometry> geometry) {
+            foreach(var triangle in geometry) {
+                SetupDrawing(triangle.Vertices, triangle.Indices);
+            }
         }
 
         private string loadShaderFile(string shaderPath) {
