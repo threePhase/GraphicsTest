@@ -3,6 +3,8 @@
   "buildOptions": {
     "copyToOutput": {
         "mappings": {
+            "Rectangle/rectangle.vert": "src/Rectangle/rectangle.vert",
+            "Rectangle/rectangle.frag": "src/Rectangle/rectangle.frag",
             "Triangle/triangle.vert": "src/Triangle/triangle.vert",
             "Triangle/triangle.frag": "src/Triangle/triangle.frag"
         }
