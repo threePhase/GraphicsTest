@@ -8,7 +8,9 @@
             "Triangle/triangle.vert": "src/Triangle/triangle.vert",
             "Triangle/triangle.frag": "src/Triangle/triangle.frag",
             "TwoTriangles/two-triangles.vert": "src/TwoTriangles/two-triangles.vert",
-            "TwoTriangles/two-triangles.frag": "src/TwoTriangles/two-triangles.frag"
+            "TwoTriangles/two-triangles.frag": "src/TwoTriangles/two-triangles.frag",
+            "TwoTriangles2/two-triangles2.vert": "src/TwoTriangles2/two-triangles2.vert",
+            "TwoTriangles2/two-triangles2.frag": "src/TwoTriangles2/two-triangles2.frag"
         }
     },
     "debugType": "portable",
