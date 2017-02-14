@@ -85,7 +85,7 @@ namespace Engine {
 
         public void SetupDrawing(float[] vertices, uint[] indices = null, DrawingMode mode = DrawingMode.Fill) {
             var geometry = new List<Geometry>{
-                new Geometry(vertices, indices)
+                new Geometry(vertices, indices, mode)
             };
             SetupDrawing(geometry);
         }
