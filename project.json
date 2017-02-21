@@ -13,7 +13,9 @@
             "TwoTriangles2/two-triangles2.frag": "src/TwoTriangles2/two-triangles2.frag",
             "TwoTrianglesTwoShaders/orange.frag": "src/TwoTrianglesTwoShaders/orange.frag",
             "TwoTrianglesTwoShaders/yellow.frag": "src/TwoTrianglesTwoShaders/yellow.frag",
-            "TwoTrianglesTwoShaders/two-triangles-two-shaders.vert": "src/TwoTrianglesTwoShaders/two-triangles-two-shaders.vert"
+            "TwoTrianglesTwoShaders/two-triangles-two-shaders.vert": "src/TwoTrianglesTwoShaders/two-triangles-two-shaders.vert",
+            "TriangleShaderColorLink/triangle-shader-color-link.vert": "src/TriangleShaderColorLink/triangle-shader-color-link.vert",
+            "TriangleShaderColorLink/triangle-shader-color-link.frag": "src/TriangleShaderColorLink/triangle-shader-color-link.frag"
         }
     },
     "debugType": "portable",

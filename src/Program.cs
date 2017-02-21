@@ -8,6 +8,7 @@ using Triangle2 = GraphicsTest.Triangle2;
 using TwoTriangles = GraphicsTest.TwoTriangles;
 using TwoTriangles2 = GraphicsTest.TwoTriangles2;
 using TwoTrianglesTwoShaders = GraphicsTest.TwoTrianglesTwoShaders;
+using TriangleShaderColorLink = GraphicsTest.TriangleShaderColorLink;
 
 namespace GraphicsTest
 {
@@ -27,7 +28,8 @@ namespace GraphicsTest
                 new DemoSelection(new Rectangle.Demo()),
                 new DemoSelection(new TwoTriangles.Demo()),
                 new DemoSelection(new TwoTriangles2.Demo()),
-                new DemoSelection(new TwoTrianglesTwoShaders.Demo())
+                new DemoSelection(new TwoTrianglesTwoShaders.Demo()),
+                new DemoSelection(new TriangleShaderColorLink.Demo())
             };
 
             int selectedDemo = (int)startInteractiveMenu(demos);
