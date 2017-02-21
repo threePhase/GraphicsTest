@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine;
 using Engine.Interfaces;
 using GraphicsTest.Interfaces;
@@ -19,7 +20,7 @@ namespace GraphicsTest.Triangle2 {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
 
-            _renderer.SetupShaders(_vertexShaderPath, _fragmentShaderPath);
+            var shader = new Shader(_vertexShaderPath, _fragmentShaderPath);
 
             // (x, y, z) coordinate pairs
             float[] vertices = {
@@ -28,7 +29,12 @@ namespace GraphicsTest.Triangle2 {
                 -0.5f, -0.5f, 0.0f  // bottom left
             };
 
-            _renderer.SetupDrawing(vertices);
+
+            var geometry = new List<Geometry> {
+                new Geometry(vertices, shader)
+            };
+
+            _renderer.SetupGeometry(geometry);
 
             while (_engine.IsRunning()) {
                 _engine.PollEvents();

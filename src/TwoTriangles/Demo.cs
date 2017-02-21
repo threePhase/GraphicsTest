@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine;
 using Engine.Interfaces;
 using GraphicsTest.Interfaces;
@@ -17,10 +18,8 @@ namespace GraphicsTest.TwoTriangles {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
 
-            var fragmentShader = new Shader("TwoTriangles/two-triangles.frag");
-            var vertexShader = new Shader("TwoTriangles/two-triangles.vert");
-
-            _renderer.SetupShaders(vertexShader, fragmentShader);
+            var shader = new Shader("TwoTriangles/two-triangles.vert",
+                                    "TwoTriangles/two-triangles.frag");
 
             // (x, y, z) coordinate pairs
             float[] vertices = {
@@ -37,7 +36,8 @@ namespace GraphicsTest.TwoTriangles {
                 2, 3, 4
             };
 
-            _renderer.SetupDrawing(vertices, indices);
+            var triangles = new Geometry(vertices, indices, shader);
+            _renderer.SetupGeometry(new List<Geometry>{ triangles });
 
             while (_engine.IsRunning()) {
                 _engine.PollEvents();

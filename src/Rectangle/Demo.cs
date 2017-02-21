@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine;
 using Engine.Interfaces;
 using GraphicsTest.Interfaces;
@@ -17,10 +18,9 @@ namespace GraphicsTest.Rectangle {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
 
-            var fragmentShader = new Shader("Rectangle/Rectangle.frag");
-            var vertexShader = new Shader("Rectangle/Rectangle.vert");
 
-            _renderer.SetupShaders(vertexShader, fragmentShader);
+            var shader = new Shader("Rectangle/Rectangle.vert",
+                                    "Rectangle/Rectangle.frag");
 
             // (x, y, z) coordinate pairs
             float[] vertices = {
@@ -36,7 +36,11 @@ namespace GraphicsTest.Rectangle {
                 1, 2, 3
             };
 
-            _renderer.SetupDrawing(vertices, indices, DrawingMode.Wireframe);
+            var geometry = new List<Geometry>{
+                new Geometry(vertices, indices, shader, DrawingMode.Wireframe)
+            };
+
+            _renderer.SetupGeometry(geometry);
 
             while (_engine.IsRunning()) {
                 _engine.PollEvents();

@@ -18,30 +18,28 @@ namespace GraphicsTest.TwoTriangles2 {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
 
-            var fragmentShader = new Shader("TwoTriangles2/two-triangles2.frag");
-            var vertexShader = new Shader("TwoTriangles2/two-triangles2.vert");
-
-            _renderer.SetupShaders(vertexShader, fragmentShader);
+            var shader = new Shader("TwoTriangles2/two-triangles2.vert",
+                                    "TwoTriangles2/two-triangles2.frag");
 
             // (x, y, z) coordinate pairs
             var left_triangle = new Geometry(new float[] {
                 -1.0f, -0.5f, 0.0f, // left triangle - left point
                 -0.5f,  0.5f, 0.0f, // left triangle - top
                  0.0f, -0.5f, 0.0f  // center
-            });
+            }, shader);
 
             var right_triangle = new Geometry(new float[] {
                 0.5f,  0.5f, 0.0f, // right triangle - top
                 1.0f, -0.5f, 0.0f, // right triangle - right point
                 0.0f, -0.5f, 0.0f  // center
-            });
+            }, shader);
 
             var geometry = new List<Geometry>{
                 left_triangle,
                 right_triangle
             };
 
-            _renderer.SetupDrawing(geometry);
+            _renderer.SetupGeometry(geometry);
 
             while (_engine.IsRunning()) {
                 _engine.PollEvents();

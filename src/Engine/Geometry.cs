@@ -10,17 +10,21 @@ namespace Engine {
 
         private uint _elementBuffer;
         private DrawingMode _mode;
+        private Shader _shader;
         private uint _vertexArray;
         private uint _vertexBuffer;
 
-        public Geometry() : this(null, null) {}
-        public Geometry(float[] vertices) : this(vertices, null) {}
+        public Geometry(float[] vertices, Shader shader) :
+            this(vertices, null, shader) {}
+
         public Geometry(float[] vertices,
                         uint[] indices,
+                        Shader shader,
                         DrawingMode mode = DrawingMode.Fill) {
             Indices = indices;
             Vertices = vertices;
             _mode = mode;
+            _shader = shader;
             setup();
         }
 
@@ -32,6 +36,7 @@ namespace Engine {
         }
 
         public void Draw() {
+            OpenGL.UseProgram(_shader.Program);
             OpenGL.BindVertexArray(_vertexArray);
             if (_elementBuffer != 0) {
                 OpenGL.DrawElements(OpenGL.GL_TRIANGLES, 6, OpenGL.GL_UNSIGNED_INT, IntPtr.Zero);
