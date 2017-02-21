@@ -18,8 +18,8 @@ namespace GraphicsTest.TwoTriangles2 {
             _engine = new DemoGameEngine();
             _renderer = new DemoRenderer(_engine.GetWindow());
 
-            var shader = new Shader("TwoTriangles2/two-triangles2.vert",
-                                    "TwoTriangles2/two-triangles2.frag");
+            var shader = new Shader("Shaders/triangle.vert",
+                                    "Shaders/orange.frag");
 
             // (x, y, z) coordinate pairs
             var left_triangle = new Geometry(new float[] {

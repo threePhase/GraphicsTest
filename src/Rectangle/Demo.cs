@@ -19,8 +19,8 @@ namespace GraphicsTest.Rectangle {
             _renderer = new DemoRenderer(_engine.GetWindow());
 
 
-            var shader = new Shader("Rectangle/Rectangle.vert",
-                                    "Rectangle/Rectangle.frag");
+            var shader = new Shader("Shaders/triangle.vert",
+                                    "Shaders/orange.frag");
 
             // (x, y, z) coordinate pairs
             float[] vertices = {

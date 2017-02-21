@@ -3,19 +3,11 @@
   "buildOptions": {
     "copyToOutput": {
         "mappings": {
-            "Rectangle/rectangle.vert": "src/Rectangle/rectangle.vert",
-            "Rectangle/rectangle.frag": "src/Rectangle/rectangle.frag",
-            "Triangle/triangle.vert": "src/Triangle/triangle.vert",
-            "Triangle/triangle.frag": "src/Triangle/triangle.frag",
-            "TwoTriangles/two-triangles.vert": "src/TwoTriangles/two-triangles.vert",
-            "TwoTriangles/two-triangles.frag": "src/TwoTriangles/two-triangles.frag",
-            "TwoTriangles2/two-triangles2.vert": "src/TwoTriangles2/two-triangles2.vert",
-            "TwoTriangles2/two-triangles2.frag": "src/TwoTriangles2/two-triangles2.frag",
-            "TwoTrianglesTwoShaders/orange.frag": "src/TwoTrianglesTwoShaders/orange.frag",
-            "TwoTrianglesTwoShaders/yellow.frag": "src/TwoTrianglesTwoShaders/yellow.frag",
-            "TwoTrianglesTwoShaders/two-triangles-two-shaders.vert": "src/TwoTrianglesTwoShaders/two-triangles-two-shaders.vert",
-            "TriangleShaderColorLink/triangle-shader-color-link.vert": "src/TriangleShaderColorLink/triangle-shader-color-link.vert",
-            "TriangleShaderColorLink/triangle-shader-color-link.frag": "src/TriangleShaderColorLink/triangle-shader-color-link.frag"
+            "Shaders/darkred-out-vertexColor.vert": "src/Shaders/darkred-out-vertexColor.vert",
+            "Shaders/orange.frag": "src/Shaders/orange.frag",
+            "Shaders/passthru-in-vertexColor.frag": "src/Shaders/passthru-in-vertexColor.frag",
+            "Shaders/triangle.vert": "src/Shaders/triangle.vert",
+            "Shaders/yellow.frag": "src/Shaders/yellow.frag"
         }
     },
     "debugType": "portable",

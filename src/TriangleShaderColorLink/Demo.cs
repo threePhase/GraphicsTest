@@ -8,9 +8,9 @@ namespace GraphicsTest.TriangleShaderColorLink {
         private IGameEngine _engine;
         private IRenderer _renderer;
         private const string _fragmentShaderPath =
-            "TriangleShaderColorLink/triangle-shader-color-link.frag";
+            "Shaders/passthru-in-vertexColor.frag";
         private const string _vertexShaderPath =
-            "TriangleShaderColorLink/triangle-shader-color-link.vert";
+            "Shaders/darkred-out-vertexColor.vert";
 
         public string Name {
             get {

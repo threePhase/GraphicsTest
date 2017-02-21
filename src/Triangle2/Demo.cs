@@ -7,8 +7,8 @@ namespace GraphicsTest.Triangle2 {
     public class Demo : IDemo {
         private IGameEngine _engine;
         private IRenderer _renderer;
-        private const string _fragmentShaderPath = "Triangle/triangle.frag";
-        private const string _vertexShaderPath = "Triangle/triangle.vert";
+        private const string _fragmentShaderPath = "Shaders/orange.frag";
+        private const string _vertexShaderPath = "Shaders/triangle.vert";
 
         public string Name {
             get {

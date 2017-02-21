@@ -45,7 +45,7 @@ namespace GraphicsTest.Triangle
 
             setupViewport(window);
 
-            string vertexShaderText = loadShaderFile("Triangle/triangle.vert");
+            string vertexShaderText = loadShaderFile("Shaders/triangle.vert");
             // create the OpenGL Vertex Shader Object
             uint vertexShader = 0;
             try {
@@ -57,7 +57,7 @@ namespace GraphicsTest.Triangle
                 return;
             }
 
-            string fragmentShaderText = loadShaderFile("Triangle/triangle.frag");
+            string fragmentShaderText = loadShaderFile("Shaders/orange.frag");
             // create the OpenGL Fragment Shader Object
             uint fragmentShader = 0;
             try {

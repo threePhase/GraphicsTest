@@ -19,12 +19,12 @@ namespace GraphicsTest.TwoTrianglesTwoShaders {
             _renderer = new DemoRenderer(_engine.GetWindow());
 
             var leftTriangleShader =
-                new Shader("TwoTrianglesTwoShaders/two-triangles-two-shaders.vert",
-                           "TwoTrianglesTwoShaders/orange.frag");
+                new Shader("Shaders/triangle.vert",
+                           "Shaders/orange.frag");
 
             var rightTriangleShader =
-                new Shader("TwoTrianglesTwoShaders/two-triangles-two-shaders.vert",
-                           "TwoTrianglesTwoShaders/yellow.frag");
+                new Shader("Shaders/triangle.vert",
+                           "Shaders/yellow.frag");
 
             // (x, y, z) coordinate pairs
             var left_triangle = new Geometry(new float[] {
